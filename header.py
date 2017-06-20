@@ -1,6 +1,6 @@
 """goal = [0,1,2,
-        3,4,5,
-        6,7,8]
+           3,4,5,
+           6,7,8]
 Consider 0 as blank"""
 
 class Node:
@@ -9,10 +9,10 @@ class Node:
     def __init__(self,initial_state):
         self.initial_state = initial_state
         self.search_space = []
-        
+        self.path_cost = []
+
     def explore(self):
         blank = self.initial_state.index(0)
-        print(blank)
         #this does horizontal movements of blank
         if blank%3==0:
             temp_state = self.initial_state[:]
@@ -77,4 +77,18 @@ class Node:
             temp2_state[blank] = temp22
             self.search_space.append(temp2_state)
 
+        self.cost()
  
+    def cost(self):
+        for i in range(0,len(self.search_space)):
+            cost = 0
+            temp = self.search_space[i][:]
+            for j in range(0,len(temp)):
+                temp_val = temp[j]
+                temp_ind = j
+                goal_ind = self.goal.index(temp_val)
+
+                cost = cost + abs((temp_ind%3)-(goal_ind%3)) + abs((temp_ind//3)-(goal_ind//3))
+
+            self.path_cost.append(cost)                        
+        
