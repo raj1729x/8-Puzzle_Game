@@ -1,18 +1,26 @@
 from header import *
 
-'''goal = [0,1,2,
-           3,4,5,
-           6,7,8]
-Consider 0 as blank'''
+initial_state = [1,2,3,4,0,5,6,7,8]
+goal = [0,1,2,3,4,5,6,7,8]
+explored = []
+search = []
 
+#just to test if it works
+search.append(initial_state)
 
-x = Node([1,2,3,4,0,5,6,7,8])
-x.explore()
-print(x.search_space)
-print(x.path_cost)
-
-
-
-
-
+#for BFS
+while True:
+    current_state = search[0]
+    print(current_state)
+    if(current_state == goal):
+        break
+    state = Node(current_state)
+    state.Explore()
+    for i in range(0,len(state.search_space)):
+        if(state.search_space[i] not in explored):
+            search.append(state.search_space[i])
+    explored.append(current_state)
+    search.remove(current_state)
+    
+    
 
